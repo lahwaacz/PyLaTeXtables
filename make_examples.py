@@ -2,10 +2,13 @@
 
 import os.path
 import math
+import subprocess
 
 import PyLaTeXtables as plt
 
 import pandas
+
+examples_dir = os.path.join(os.path.dirname(__file__), "examples")
 
 HEADER_DICTIONARY = {
         "h": r"$ h~[\textup{m}] $",
@@ -37,6 +40,9 @@ def recalculate_eocs(df, norm_columns):
         df.loc[i, eoc_multiindex] = None
 
 def make_table(filename):
+    filename = os.path.join(examples_dir, filename)
+    basename, ext = os.path.splitext(filename)
+
     parts = []
 
     # load data frame
@@ -56,7 +62,6 @@ def make_table(filename):
     df = pandas.concat([df["BC"], df["VG"]], keys=["BC", "VG"])
 
     # output to LaTeX
-    basename, ext = os.path.splitext(filename)
     output_file = basename + ".tex"
     plt.write_latex(df, output_file, header_dict=HEADER_DICTIONARY)
 
@@ -67,10 +72,9 @@ def make_table(filename):
 
 
 if __name__ == "__main__":
-    import sys
-    if len(sys.argv) < 2:
-        print("usage: {} file_1.ods [file_2.ods ...]".format(sys.argv[0]), file=sys.stderr)
-        sys.exit(1)
+    for f in ["2d_grid.csv"]:
+        make_table(f)
 
-    for f in sys.argv[1:]:
-        df = make_table(f)
+    # run pdflatex
+    os.chdir(examples_dir)
+    subprocess.run("pdflatex main.tex", shell=True, check=True)

@@ -1,0 +1,27 @@
+\documentclass[11pt, a4paper, landscape]{article}
+
+\usepackage{a4wide}
+
+% tables
+\usepackage{adjustbox}
+\usepackage{booktabs}
+\usepackage{multirow}
+\newcommand{\shiftleft}[2]{\makebox[0pt][r]{\makebox[#1][l]{#2}}}
+\newcommand{\shiftright}[2]{\makebox[#1][r]{\makebox[0pt][l]{#2}}}
+
+% numprint
+\usepackage[np]{numprint}
+\npstyleenglish
+\npproductsign{\cdot}
+\npthousandsep{}
+\npthousandthpartsep{}
+
+% packages specific to the examples (e.g. due to the table header)
+\usepackage{amsmath}
+
+\begin{document}
+
+\input{./2d_grid.tex}
+\input{./2d_grid_transposed.tex}
+
+\end{document}
