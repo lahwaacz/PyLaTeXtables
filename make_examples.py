@@ -60,6 +60,11 @@ def make_table(filename):
     output_file = basename + ".tex"
     plt.write_latex(df, output_file, header_dict=HEADER_DICTIONARY)
 
+    # transposed variant
+    df2 = df.transpose()
+    output_file = basename + "_transposed.tex"
+    plt.write_latex(df2, output_file, header_dict=HEADER_DICTIONARY)
+
 
 if __name__ == "__main__":
     import sys
