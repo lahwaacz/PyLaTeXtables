@@ -1,0 +1,84 @@
+((* set index_columns = df.index.names | length *))
+((* set data_columns = df.columns | length *))
+((* set header_rows = df.columns.names | length *))
+
+((* set tabular_columns = 'r' * index_columns + 'r' * ( data_columns % 2 ) + 'rc' * ( data_columns // 2 ) *))
+((* set np_digits = 2 *))
+
+% The table needs the following to be defined in the preamble:
+%   
+%   \usepackage{booktabs}
+%   \usepackage{multirow}
+%   \usepackage[np]{numprint}
+%   \newcommand{\shiftleft}[2]{\makebox[0pt][r]{\makebox[#1][l]{#2}}}
+%   \newcommand{\shiftright}[2]{\makebox[#1][r]{\makebox[0pt][l]{#2}}}
+
+\begin{tabular}{((( tabular_columns )))}
+\toprule
+
+((* for row in range(header_rows) *))
+    % header row ((( row )))
+    ((# Last row of the header should describe either the header rows or the index columns. #))
+    ((# We assume that these cases are disjunct. #))
+    ((* if df.columns.names[row] *))
+        \multicolumn{((( index_columns )))}{l}{((( df.columns.names[row] | header_fmt )))}
+    ((* elif loop.last *))
+        ((* for col_description in df.index.names *))
+            ((( '  &  ' if not loop.first )))\multicolumn{1}{c}{((( col_description | np(np_digits) | header_fmt if col_description )))}
+        ((* endfor *))
+    ((* else *))
+        ((* for c in range(index_columns-1) *))
+            ((( '  &  ' )))
+        ((* endfor *))
+    ((* endif *))
+    ((* for col_description, colspan in sparse_header[row] -*))
+        ((* if col_description *))
+            ((( '  &  ' )))\multicolumn{((( colspan )))}{c}{((( col_description | np(np_digits) | header_fmt if col_description )))}
+        ((* endif *))
+    ((*- endfor *))  \\
+
+((* endfor *))
+\midrule
+
+((* for idx, row in df.iterrows() -*))
+    ((* set outer_loop = loop *))
+    ((# normal variables can't be set from loops, so we need a list #))
+    ((* set cline_already_set = [] *))
+    ((* for row_description, rowspan in sparse_index[outer_loop.index0] -*))
+        ((* if rowspan > 1 and not outer_loop.first and cline_already_set | length == 0 *))
+            \cline{((( loop.index )))-((( index_columns + data_columns )))}\noalign{\smallskip}
+            ((* if cline_already_set.append(True) *))((* endif *))
+        ((* endif *))
+    ((*- endfor *))
+
+    ((* for row_description, rowspan in sparse_index[outer_loop.index0] -*))
+        ((* if rowspan > 1 -*))
+            ((( row_description | np(np_digits) | header_fmt | vertical_text | multirow(rowspan) )))
+        ((*- else -*))
+            ((( row_description | np(np_digits) | header_fmt )))
+        ((*- endif *))((( '  &  ' )))
+    ((*- endfor *))
+
+    ((* for x in row -*))
+        ((* set _row_label = sparse_index[outer_loop.index0][-1][0] | string *))
+        ((* set _col_label = sparse_header[-1][loop.index0][0] | string *))
+        ((* if "eoc" in _row_label.lower() -*))
+            ((* if not loop.last -*))
+                ((# TODO: figure out how to center this automatically #))
+                \shiftright{0pt}{\bf ((( x | np(np_digits, maybe_int=False) if x | string != "nan" )))}((( '  &  ' if loop.revindex0 > 1 )))
+            ((*- endif *))
+        ((*- elif "eoc" in _col_label.lower() -*))
+            ((* if not outer_loop.last -*))
+                ((# TODO: figure out how to center this automatically #))
+                \raisebox{-1.5ex}[0ex][0ex]{\bf ((( x | np(np_digits, maybe_int=False) if x | string != "nan" )))}((( '  &  ' if loop.revindex0 > 1 )))
+            ((*- else -*))
+                ((( '  &  ' if loop.revindex0 > 1 )))
+            ((*- endif *))
+        ((*- else -*))
+            ((( x | np(np_digits, maybe_int=False) )))((( '  &  ' if not loop.last )))
+        ((*- endif *))
+    ((*- endfor *))((( ' \\\\\n' )))
+((*- endfor *))
+
+\bottomrule
+\end{tabular}
