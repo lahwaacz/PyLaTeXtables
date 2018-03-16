@@ -7,12 +7,11 @@
 
 % The table needs the following to be defined in the preamble:
 %   
-%   \usepackage{adjustbox}
 %   \usepackage{booktabs}
 %   \usepackage{multirow}
+%   \usepackage{adjustbox}
+%   \usepackage{stackengine}
 %   \usepackage[np]{numprint}
-%   \newcommand{\shiftleft}[2]{\makebox[0pt][r]{\makebox[#1][l]{#2}}}
-%   \newcommand{\shiftright}[2]{\makebox[#1][r]{\makebox[0pt][l]{#2}}}
 
 \begin{tabular}{((( tabular_columns )))}
 \toprule
@@ -65,8 +64,8 @@
         ((* set _col_label = sparse_header[-1][loop.index0][0] | string *))
         ((* if "eoc" in _row_label.lower() -*))
             ((* if not loop.first -*))
-                ((# TODO: figure out how to center this automatically #))
-                \shiftleft{0pt}{\bf ((( x | np(np_digits, maybe_int=False) if x | string != "nan" )))}((( '  &  ' if loop.revindex0 > 1 )))
+                ((# reference: https://tex.stackexchange.com/a/168457/135207 #))
+                \hfill\stackinset{c}{}{b}{}{\bf ((( x | np(np_digits, maybe_int=False) if x | string != "nan" )))}{}((( '  &  ' )))
             ((*- endif *))
         ((*- elif "eoc" in _col_label.lower() -*))
             ((* if not outer_loop.first -*))

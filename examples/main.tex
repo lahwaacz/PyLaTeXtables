@@ -1,4 +1,4 @@
-\documentclass[11pt, a4paper, landscape]{article}
+\documentclass[11pt, a4paper]{article}
 
 \usepackage{a4wide}
 
@@ -6,8 +6,7 @@
 \usepackage{adjustbox}
 \usepackage{booktabs}
 \usepackage{multirow}
-\newcommand{\shiftleft}[2]{\makebox[0pt][r]{\makebox[#1][l]{#2}}}
-\newcommand{\shiftright}[2]{\makebox[#1][r]{\makebox[0pt][l]{#2}}}
+\usepackage{stackengine}
 
 % numprint
 \usepackage[np]{numprint}
@@ -22,6 +21,7 @@
 \begin{document}
 
 \input{./2d_grid.tex}
+\bigskip
 \input{./2d_grid_transposed.tex}
 
 \end{document}

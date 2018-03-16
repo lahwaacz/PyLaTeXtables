@@ -67,6 +67,7 @@ def make_table(filename):
 
     # transposed variant
     df2 = df.transpose()
+    df2 = pandas.concat([df2["BC"], df2["VG"]], keys=["BC", "VG"])
     output_file = basename + "_transposed.tex"
     plt.write_latex(df2, output_file, header_dict=HEADER_DICTIONARY)
 
