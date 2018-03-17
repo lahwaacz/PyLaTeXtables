@@ -45,17 +45,23 @@ def load_dataframes(filename):
             yield df[a+1:b]
 
 def build_header(df):
-    header_rows = []
-    for i, row in df.iterrows():
-        # detect header rows: those that don't start with numbers
-        value = row.get_values()[0]
-        isnull = row.isnull().get_values()[0]
+    def is_number(value):
         try:
             float(value)
-            isfloat = True
+            return True
         except ValueError:
-            isfloat = False
-        if isfloat and not isnull:
+            return False
+
+    def is_header_row(row):
+        for value, isnull in zip(row.get_values(), row.isnull().get_values()):
+            if is_number(value) and not isnull:
+                return False
+        return True
+
+    header_rows = []
+    for i, row in df.iterrows():
+        # detect header rows: those that don't contain any numbers
+        if not is_header_row(row):
             break
 
         header = []
