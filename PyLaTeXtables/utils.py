@@ -89,17 +89,17 @@ def cleanup_dataframe(df, *, index_columns=1):
     # drop empty columns
     df = df.dropna(axis=1, how="all")
 
+    # explicitly convert strings to numbers
+    # (this would not be necessary if we could use the 'header' parameter of pandas.read_csv)
+    for col in df.columns:
+        df[col] = pandas.to_numeric(df[col], errors="ignore")
+
     # build header
     df = build_header(df)
 
     # skip empty dataframes (parts of the tables that contained only the header, no data)
     if df.empty:
         return df
-
-    # explicitly convert strings to numbers
-    # (this would not be necessary if we could use the 'header' parameter of pandas.read_csv)
-    for col in df.columns:
-        df[col] = pandas.to_numeric(df[col], errors="ignore")
 
     # set index
     # gotcha: DataFrame.set_index is completely incomprehensible for multiindexes,
