@@ -27,7 +27,7 @@ def load_dataframes(filename):
     df = pandas.read_csv(csv,
                          delimiter="\t",
                          header=None,
-                         na_values=["#DIV/0!", "Err:502"],
+                         na_values=["#DIV/0!", "Err:502", "#VALUE!"],
                          skip_blank_lines=False)
 
     # split on null rows
