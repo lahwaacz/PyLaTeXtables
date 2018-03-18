@@ -7,7 +7,7 @@ try:
     import pandas
     pandas.set_option('display.max_columns', 100)
     pandas.set_option('display.max_rows', 200)
-    pandas.set_option('display.width', 150)
+    pandas.set_option('display.width', 128)
 except ImportError:
     raise ImportError("Please make sure that the python3-pandas package is installed.")
 
