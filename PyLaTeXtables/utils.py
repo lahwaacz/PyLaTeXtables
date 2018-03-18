@@ -117,7 +117,7 @@ def cleanup_dataframe(df, *, index_columns=1):
     names = []
     for label in labels:
         if isinstance(label, tuple):
-            if label[:-1] == ("", ) * (index_columns - 2):
+            if label[:-1] == ("", ) * (len(label) - 1):
                 label = label[-1]
         names.append(label)
     df.index = df.index.set_names(names)
