@@ -63,13 +63,13 @@ def make_table(filename):
 
     # output to LaTeX
     output_file = basename + ".tex"
-    plt.write_latex(df, output_file, header_dict=HEADER_DICTIONARY)
+    plt.write_latex(df, output_file, header_dict=HEADER_DICTIONARY, template_name="eoc.tex")
 
     # transposed variant
     df2 = df.transpose()
     df2 = pandas.concat([df2["BC"], df2["VG"]], keys=["BC", "VG"])
     output_file = basename + "_transposed.tex"
-    plt.write_latex(df2, output_file, header_dict=HEADER_DICTIONARY)
+    plt.write_latex(df2, output_file, header_dict=HEADER_DICTIONARY, template_name="eoc.tex")
 
 
 if __name__ == "__main__":

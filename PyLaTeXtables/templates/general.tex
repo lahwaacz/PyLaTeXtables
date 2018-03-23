@@ -1,0 +1,70 @@
+((* set index_columns = df.index.names | length *))
+((* set data_columns = df.columns | length *))
+((* set header_rows = df.columns.names | length *))
+
+((* set tabular_columns = 'r' * index_columns + 'r' * data_columns *))
+((* set np_digits = None *))
+
+% The table needs the following to be defined in the preamble:
+%   
+%   \usepackage{booktabs}
+%   \usepackage{multirow}
+%   \usepackage{adjustbox}
+%   \usepackage{stackengine}
+%   \usepackage[np]{numprint}
+
+\begin{tabular}{((( tabular_columns )))}
+\toprule
+
+((* for row in range(header_rows) *))
+    % header row ((( row )))
+    ((# Last row of the header should describe either the header rows or the index columns. #))
+    ((# We assume that these cases are disjunct. #))
+    ((* if df.columns.names[row] *))
+        \multicolumn{((( index_columns )))}{l}{((( df.columns.names[row] | header_fmt )))}
+    ((* elif loop.last *))
+        ((* for col_description in df.index.names *))
+            ((( '  &  ' if not loop.first )))\multicolumn{1}{c}{((( col_description | np(np_digits) | header_fmt if col_description )))}
+        ((* endfor *))
+    ((* else *))
+        ((* for c in range(index_columns-1) *))
+            ((( '  &  ' )))
+        ((* endfor *))
+    ((* endif *))
+    ((* for col_description, colspan in sparse_header[row] -*))
+        ((* if col_description *))
+            ((( '  &  ' )))\multicolumn{((( colspan )))}{c}{((( col_description | np(np_digits) | header_fmt if col_description )))}
+        ((* endif *))
+    ((*- endfor *))  \\
+
+((* endfor *))
+\midrule
+
+((* for idx, row in df.iterrows() -*))
+    ((* set outer_loop = loop *))
+    ((# normal variables can't be set from loops, so we need a list #))
+    ((* set cline_already_set = [] *))
+    ((* for row_description, rowspan in sparse_index[outer_loop.index0] -*))
+        ((* if rowspan > 1 and not outer_loop.first and cline_already_set | length == 0 *))
+            \cline{((( loop.index )))-((( index_columns + data_columns )))}\noalign{\smallskip}
+            ((* if cline_already_set.append(True) *))((* endif *))
+        ((* endif *))
+    ((*- endfor *))
+
+    ((* for row_description, rowspan in sparse_index[outer_loop.index0] -*))
+        ((* if rowspan > 1 -*))
+            ((( row_description | np(np_digits) | header_fmt | vertical_text | multirow(rowspan) )))
+        ((*- else -*))
+            ((( row_description | np(np_digits) | header_fmt )))
+        ((*- endif *))((( '  &  ' )))
+    ((*- endfor *))
+
+    ((* for x in row -*))
+        ((* set _row_label = sparse_index[outer_loop.index0][-1][0] | string *))
+        ((* set _col_label = sparse_header[-1][loop.index0][0] | string *))
+        ((( x | np(np_digits, maybe_int=False) )))((( '  &  ' if not loop.last )))
+    ((*- endfor *))((( ' \\\\\n' )))
+((*- endfor *))
+
+\bottomrule
+\end{tabular}

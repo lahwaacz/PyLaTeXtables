@@ -48,7 +48,7 @@ def get_sparse_labels(multiindex, transpose=True):
         zipped.append(r)
     return zipped
 
-def write_latex(df, output_file, *, header_dict=None, template_name="eoc_table_template.tex"):
+def write_latex(df, output_file, *, header_dict=None, template_name="general.tex", exp_low_threshold=0.25, exp_high_threshold=1000):
     if header_dict is None:
         header_dict = {}
 
@@ -86,9 +86,9 @@ def write_latex(df, output_file, *, header_dict=None, template_name="eoc_table_t
             if maybe_int is True and value == int(value):
                 return r"\np{" + str(int(value)) + "}"
             if exponents is True:
-                if value < 0.25:
+                if value < exp_low_threshold:
                     f = "e"
-                elif value < 1000:
+                elif value < exp_high_threshold:
                     f = "f"
                 else:
                     f = "g"
