@@ -4,6 +4,7 @@
 
 ((* set tabular_columns = 'r' * index_columns + data_column_types *))
 ((* set np_digits = 2 *))
+((* set header_is_hierarchical = df.columns.format(sparsify=True) != df.columns.format(sparsify=False) *))
 
 % The table needs the following to be defined in the preamble:
 %   
@@ -36,6 +37,14 @@
             ((( '  &  ' )))\multicolumn{((( colspan )))}{c}{((( col_description | np(np_digits) | header_fmt if col_description )))}
         ((* endif *))
     ((*- endfor *))  \\
+    ((# Underline the common columns of hierarchical header #))
+    ((* if header_is_hierarchical and not loop.last -*))
+        ((* for col_description, colspan in sparse_header[row] -*))
+            ((* if colspan > 0 *))
+                \cmidrule(l((( 'r' if loop.index + colspan - 1 < data_columns )))){((( index_columns + loop.index )))-((( index_columns + loop.index + colspan - 1 )))}
+            ((* endif *))
+        ((*- endfor *))
+    ((*- endif *))
 
 ((* endfor *))
 \midrule
