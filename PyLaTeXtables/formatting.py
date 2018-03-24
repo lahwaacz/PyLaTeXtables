@@ -2,13 +2,39 @@
 
 import os.path
 import re
+import decimal
 
 try:
     import jinja2
 except ImportError:
     raise ImportError("Please make sure that the python3-jinja2 package is installed.")
 
-__all__ = ["write_latex"]
+__all__ = ["get_column_types", "write_latex"]
+
+def get_column_types(df, f="N", hide_nans=False):
+    assert f in {"n", "N"}
+
+    def count_places_before(d):
+        if not d.is_finite():
+            return 0 if hide_nans is True else len(str(d))
+        t = d.as_tuple()
+        return max(1, t.sign + len(t.digits) + t.exponent)
+
+    def count_places_after(d):
+        e = d.as_tuple().exponent
+        if not isinstance(e, int):
+            return 0  # NaN
+        return max(0, -e)
+
+    decimals = df.applymap(lambda v: decimal.Decimal(str(v)))
+    places_before = decimals.applymap(count_places_before).apply(max)
+    places_after = decimals.applymap(count_places_after).apply(max)
+
+    column_types = []
+    for before, after in zip(places_before, places_after):
+        column_types.append(f + "{" + str(before) + "}{" + str(after) + "}")
+
+    return " ".join(column_types), places_before, places_after
 
 def _get_spans(sparse_labels):
     # calculate column/row spans
@@ -53,9 +79,14 @@ def get_sparse_labels(multiindex, transpose=True):
         zipped.append(r)
     return zipped
 
-def write_latex(df, output_file, *, header_dict=None, template_name="general.tex", exp_low_threshold=0.25, exp_high_threshold=1000):
+def write_latex(df, output_file, *, header_dict=None, template_name="general.tex",
+                column_types=None, places_before=None, places_after=None,
+                exp_low_threshold=0.25, exp_high_threshold=1000, hide_nans=False):
     if header_dict is None:
         header_dict = {}
+
+    if column_types is None:
+        column_types, places_before, places_after = get_column_types(df, hide_nans=hide_nans)
 
     # custom filters
     LATEX_SUBS = (
@@ -99,7 +130,10 @@ def write_latex(df, output_file, *, header_dict=None, template_name="general.tex
                     f = "g"
             else:
                 f = "f"
-            fnum = r"\np{" + "{:.0{}{}}".format(value, digits, f) + "}"
+            if digits is None:
+                fnum = r"\np{" + "{:{}}".format(value, f) + "}"
+            else:
+                fnum = r"\np{" + "{:.0{}{}}".format(value, digits, f) + "}"
             # remove leading zeros from exponent
             if "e" in fnum:
                 a, b = fnum.split("e")
@@ -120,6 +154,13 @@ def write_latex(df, output_file, *, header_dict=None, template_name="general.tex
         if value:
             return "$ {} $".format(value)
         return ""
+
+    def data_fmt(value, column):
+        if places_after is None:
+            return value
+        if hide_nans is True and str(value) == "nan":
+            return ""
+        return "{:.0{}f}".format(value, places_after[column])
 
     if os.path.isfile(template_name):
         template_dir, template_name = os.path.split(template_name)
@@ -143,11 +184,13 @@ def write_latex(df, output_file, *, header_dict=None, template_name="general.tex
     env.filters["multirow"] = multirow
     env.filters["np"] = np
     env.filters["header_fmt"] = header_fmt
+    env.filters["data_fmt"] = data_fmt
 
     t = env.get_template(template_name)
     latex = t.render(df=df,
                      sparse_header=get_sparse_labels(df.columns, transpose=False),
-                     sparse_index=get_sparse_labels(df.index, transpose=True)
+                     sparse_index=get_sparse_labels(df.index, transpose=True),
+                     data_column_types=column_types,
                 )
     f = open(output_file, "w")
     print(latex, file=f)

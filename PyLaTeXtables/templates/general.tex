@@ -2,8 +2,8 @@
 ((* set data_columns = df.columns | length *))
 ((* set header_rows = df.columns.names | length *))
 
-((* set tabular_columns = 'r' * index_columns + 'r' * data_columns *))
-((* set np_digits = None *))
+((* set tabular_columns = 'r' * index_columns + data_column_types *))
+((* set np_digits = 2 *))
 
 % The table needs the following to be defined in the preamble:
 %   
@@ -62,7 +62,7 @@
     ((* for x in row -*))
         ((* set _row_label = sparse_index[outer_loop.index0][-1][0] | string *))
         ((* set _col_label = sparse_header[-1][loop.index0][0] | string *))
-        ((( x | np(np_digits, maybe_int=False) )))((( '  &  ' if not loop.last )))
+        ((( x | data_fmt(loop.index0) )))((( '  &  ' if not loop.last )))
     ((*- endfor *))((( ' \\\\\n' )))
 ((*- endfor *))
 
