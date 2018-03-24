@@ -95,11 +95,6 @@ def cleanup_dataframe(df, *, index_columns=1):
     # drop empty columns
     df = df.dropna(axis=1, how="all")
 
-    # explicitly convert strings to numbers
-    # (this would not be necessary if we could use the 'header' parameter of pandas.read_csv)
-    for col in df.columns:
-        df[col] = pandas.to_numeric(df[col], errors="ignore")
-
     # build header
     df = build_header(df)
 
@@ -139,5 +134,10 @@ def cleanup_dataframe(df, *, index_columns=1):
                 label = label[-1]
         names.append(label)
     df.index = df.index.set_names(names)
+
+    # explicitly convert strings to numbers - should be done only after we assemble the header and index
+    # (this would not be necessary if we could use the 'header' parameter of pandas.read_csv)
+    for col in df.columns:
+        df[col] = pandas.to_numeric(df[col], errors="ignore")
 
     return df
