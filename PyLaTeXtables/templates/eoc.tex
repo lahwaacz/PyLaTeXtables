@@ -32,7 +32,7 @@
         ((* endfor *))
     ((* endif *))
     ((* for col_description, colspan in sparse_header[row] -*))
-        ((* if col_description *))
+        ((* if colspan > 0 *))
             ((( '  &  ' )))\multicolumn{((( colspan )))}{c}{((( col_description | np(np_digits) | header_fmt if col_description )))}
         ((* endif *))
     ((*- endfor *))  \\

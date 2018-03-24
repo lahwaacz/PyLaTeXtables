@@ -19,10 +19,15 @@ def _get_spans(sparse_labels):
     spans = [x - spans[i - 1] for i, x in enumerate(spans) if i > 0]
 
     sparse_spans = []
+    popped = False
     for i in sparse_labels:
         if i:
             sparse_spans.append(spans.pop(0))
+            popped = True
+        elif popped:
+            sparse_spans.append(0)
         else:
+            # empty labels from the start get 1
             sparse_spans.append(1)
 
     return sparse_spans
