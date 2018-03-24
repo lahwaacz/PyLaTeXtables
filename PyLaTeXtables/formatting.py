@@ -177,6 +177,7 @@ def write_latex(df, output_file, *, header_dict=None, template_name="general.tex
             comment_end_string="#))",
             line_comment_prefix="%%>",
             trim_blocks=True,
+            lstrip_blocks=True,
             loader=loader,
           )
     env.filters["escape_tex"] = escape_tex
