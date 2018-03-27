@@ -80,7 +80,7 @@ def get_sparse_labels(multiindex, transpose=True):
     return zipped
 
 def write_latex(df, output_file, *, header_dict=None, template_name="general.tex",
-                column_types=None, places_before=None, places_after=None,
+                column_types=None, places_before=None, places_after=None, data_formats=None,
                 exp_low_threshold=0.25, exp_high_threshold=1000, hide_nans=False):
     if header_dict is None:
         header_dict = {}
@@ -112,6 +112,18 @@ def write_latex(df, output_file, *, header_dict=None, template_name="general.tex
     def multirow(value, span):
         return r"\multirow{" + str(span) + "}{*}{" + str(value) + "}"
 
+    def _remove_zeros_from_exponent(fnum):
+        if "e" in fnum:
+            a, b = fnum.split("e")
+            a += "e"
+            if b == "-00" or b == "+00":
+                return a + "0"
+            elif b.startswith("-") or b.startswith("+"):
+                a += b[0]
+                b = b[1:]
+            return a + b.lstrip("0")
+        return fnum
+
     def np(value, digits=None, maybe_int=True, exponents=True):
         if str(value) == "nan":
             return str(value)
@@ -134,15 +146,7 @@ def write_latex(df, output_file, *, header_dict=None, template_name="general.tex
                 fnum = r"\np{" + "{:{}}".format(value, f) + "}"
             else:
                 fnum = r"\np{" + "{:.0{}{}}".format(value, digits, f) + "}"
-            # remove leading zeros from exponent
-            if "e" in fnum:
-                a, b = fnum.split("e")
-                a += "e"
-                if b.startswith("-") or b.startswith("+"):
-                    a += b[0]
-                    b = b[1:]
-                return a + b.lstrip("0")
-            return fnum
+            return _remove_zeros_from_exponent(fnum)
         except ValueError:
             return str(value)
 
@@ -160,7 +164,12 @@ def write_latex(df, output_file, *, header_dict=None, template_name="general.tex
             return value
         if hide_nans is True and str(value) == "nan":
             return ""
-        return "{:.0{}f}".format(value, places_after[column])
+        if data_formats is None:
+            fmt = "{:.0{}f}"
+        else:
+            fmt = data_formats[column]
+        fnum = fmt.format(value, places_after[column])
+        return _remove_zeros_from_exponent(fnum)
 
     if os.path.isfile(template_name):
         template_dir, template_name = os.path.split(template_name)
