@@ -26,7 +26,7 @@ def get_column_types(df, f="N", hide_nans=False):
             return 0  # NaN
         return max(0, -e)
 
-    decimals = df.applymap(lambda v: decimal.Decimal(str(v)))
+    decimals = df.applymap(lambda v: decimal.Decimal(str(v)).normalize())
     places_before = decimals.applymap(count_places_before).apply(max)
     places_after = decimals.applymap(count_places_after).apply(max)
 
