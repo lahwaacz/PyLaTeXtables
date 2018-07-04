@@ -143,10 +143,10 @@ def write_latex(df, output_file, *, header_dict=None, template_name="general.tex
             else:
                 f = "f"
             if digits is None:
-                fnum = r"\np{" + "{:{}}".format(value, f) + "}"
+                fnum = r"\np{" + _remove_zeros_from_exponent("{:{}}".format(value, f)) + "}"
             else:
-                fnum = r"\np{" + "{:.0{}{}}".format(value, digits, f) + "}"
-            return _remove_zeros_from_exponent(fnum)
+                fnum = r"\np{" + _remove_zeros_from_exponent("{:.0{}{}}".format(value, digits, f)) + "}"
+            return fnum
         except ValueError:
             return str(value)
 
