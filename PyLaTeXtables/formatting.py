@@ -126,6 +126,8 @@ def write_latex(df, output_file, *, header_dict=None, template_name="general.tex
 
     def np(value, digits=None, maybe_int=True, exponents=True):
         if str(value) == "nan":
+            if hide_nans is True:
+                return ""
             return str(value)
         if isinstance(value, int):
             return r"\np{" + str(int(value)) + "}"
