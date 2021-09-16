@@ -53,7 +53,7 @@ def build_header(df):
             return False
 
     def is_header_row(row):
-        for value in row.get_values():
+        for value in row.values:
             if is_number(value) and not pandas.isnull(value):
                 return False
         return True

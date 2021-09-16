@@ -81,12 +81,22 @@ def get_sparse_labels(multiindex, transpose=True):
 
 def write_latex(df, output_file, *, header_dict=None, template_name="general.tex",
                 column_types=None, places_before=None, places_after=None, data_formats=None,
-                exp_low_threshold=0.25, exp_high_threshold=1000, hide_nans=False):
+                exp_low_threshold=0.25, exp_high_threshold=1000, hide_nans=False,
+                sparsify_header=True, sparsify_index=True):
     if header_dict is None:
         header_dict = {}
 
     if column_types is None:
         column_types, places_before, places_after = get_column_types(df, hide_nans=hide_nans)
+
+    if sparsify_header is True:
+        sparse_header = get_sparse_labels(df.columns, transpose=False)
+    else:
+        sparse_header = None
+    if sparsify_index is True:
+        sparse_index = get_sparse_labels(df.index, transpose=True)
+    else:
+        sparse_index = None
 
     # custom filters
     LATEX_SUBS = (
@@ -200,8 +210,8 @@ def write_latex(df, output_file, *, header_dict=None, template_name="general.tex
 
     t = env.get_template(template_name)
     latex = t.render(df=df,
-                     sparse_header=get_sparse_labels(df.columns, transpose=False),
-                     sparse_index=get_sparse_labels(df.index, transpose=True),
+                     sparse_header=sparse_header,
+                     sparse_index=sparse_index,
                      data_column_types=column_types,
                 )
     f = open(output_file, "w")
