@@ -2,7 +2,7 @@
 ((* set data_columns = df.columns | length *))
 ((* set header_rows = df.columns.names | length *))
 
-((* set tabular_columns = 'r' * index_columns + data_column_types *))
+((* set tabular_columns = index_column_types * index_columns + data_column_types *))
 ((* set np_digits = 2 *))
 ((* set header_is_hierarchical = df.columns.format(sparsify=True) != df.columns.format(sparsify=False) *))
 
@@ -65,7 +65,7 @@
     ((* if sparse_index -*))
         ((* for row_description, rowspan in sparse_index[outer_loop.index0] -*))
             ((* if rowspan > 1 -*))
-                ((( row_description | np(np_digits) | header_fmt | vertical_text | multirow(rowspan) )))
+                ((( row_description | np(np_digits) | header_fmt | multirow(rowspan) )))
             ((*- else -*))
                 ((( row_description | np(np_digits) | header_fmt )))
             ((*- endif -*))
