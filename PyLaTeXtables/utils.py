@@ -108,23 +108,24 @@ def cleanup_dataframe(df, *, index_columns=1):
     labels = list(df.columns[:index_columns])
     df = df.set_index(labels)
 
-    # fill in missing index cells (left out in CSV due to spanning)
-    index = list(df.index)
-    index = [list(r) for r in index]
-    for c in range(index_columns):
-        prev = None
-        for r in range(len(index)):
-            value = index[r][c]
-            if value and not pandas.isnull(value):
-                prev = value
-            elif prev:
-                value = prev
-            else:
-                value = ""
-            index[r][c] = value
-    # index has to be transposed for set_index
-    index = list(map(list, zip(*index)))
-    df = df.set_index(index)
+    if index_columns > 1:
+        # fill in missing index cells (left out in CSV due to spanning)
+        index = list(df.index)
+        index = [list(r) for r in index]
+        for c in range(index_columns):
+            prev = None
+            for r in range(len(index)):
+                value = index[r][c]
+                if value and not pandas.isnull(value):
+                    prev = value
+                elif prev:
+                    value = prev
+                else:
+                    value = ""
+                index[r][c] = value
+        # index has to be transposed for set_index
+        index = list(map(list, zip(*index)))
+        df = df.set_index(index)
 
     # fix index column names (drop empty items from the tuple)
     names = []
