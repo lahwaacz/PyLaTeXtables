@@ -95,7 +95,7 @@ def write_latex(df, output_file, *, template_name="general.tex",
     if sparsify_header is True:
         sparse_header = get_sparse_labels(df.columns, transpose=False)
     else:
-        sparse_header = None
+        sparse_header = [[(c, 1) for c in df.columns]]
     if sparsify_index is True:
         sparse_index = get_sparse_labels(df.index, transpose=True)
     else:
