@@ -79,8 +79,9 @@ def get_sparse_labels(multiindex, transpose=True):
         zipped.append(r)
     return zipped
 
-def write_latex(df, output_file, *, header_dict=None, template_name="general.tex",
-                column_types=None, places_before=None, places_after=None, data_formats=None,
+def write_latex(df, output_file, *, template_name="general.tex",
+                header_dict=None, header_in_math=True,
+                column_types=None, places_after=None, data_formats=None,
                 index_column_types="r", vertical_multirow_cells=True,
                 exp_low_threshold=0.25, exp_high_threshold=1000, hide_nans=False,
                 sparsify_header=True, sparsify_index=True):
@@ -88,7 +89,7 @@ def write_latex(df, output_file, *, header_dict=None, template_name="general.tex
         header_dict = {}
 
     if column_types is None:
-        column_types, places_before, places_after = get_column_types(df, hide_nans=hide_nans)
+        column_types, _, places_after = get_column_types(df, hide_nans=hide_nans)
     assert index_column_types in ["l", "c", "r"]
 
     if sparsify_header is True:
@@ -169,7 +170,7 @@ def write_latex(df, output_file, *, header_dict=None, template_name="general.tex
     def header_fmt(value):
         if value in header_dict:
             return header_dict[value]
-        if "$" in value:
+        if "$" in value or header_in_math is False:
             return value
         if value:
             return "$ {} $".format(value)
