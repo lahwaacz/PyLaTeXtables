@@ -4,7 +4,7 @@
 
 ((* set tabular_columns = index_column_types * index_columns + 'r' * ( data_columns % 2 ) + 'rc' * ( data_columns // 2 ) *))
 ((* set np_digits = 2 *))
-((* set header_is_hierarchical = df.columns.format(sparsify=True) != df.columns.format(sparsify=False) *))
+((* set header_is_hierarchical = df.columns.nlevels > 1 *))((# check if df.columns is hierarchical MultiIndex #))
 
 % The table needs the following to be defined in the preamble:
 %   
