@@ -4,12 +4,7 @@
 
 ((* set tabular_columns = index_column_types * index_columns + 'r' * ( data_columns % 2 ) + 'rc' * ( data_columns // 2 ) *))
 ((* set np_digits = 2 *))
-((* if header_is_hierarchical *))
-   % do something for multi-index
-((* else *))
-   % do something for single-level
-((* endif *))
-
+((* set header_is_hierarchical = df.columns.nlevels > 1 *))
 
 % The table needs the following to be defined in the preamble:
 %   

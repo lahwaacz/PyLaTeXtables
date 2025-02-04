@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="22555ffa-adca-4660-bb5c-c44dc1fbd3d2" name="Changes" comment="fsdf">
-      <change beforePath="$PROJECT_DIR$/PyLaTeXtables/formatting.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyLaTeXtables/formatting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PyLaTeXtables/templates/eoc.tex" beforeDir="false" afterPath="$PROJECT_DIR$/PyLaTeXtables/templates/eoc.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PyLaTeXtables/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyLaTeXtables/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/2d_grid.tex" beforeDir="false" afterPath="$PROJECT_DIR$/examples/2d_grid.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/2d_grid_transposed.tex" beforeDir="false" afterPath="$PROJECT_DIR$/examples/2d_grid_transposed.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/make_examples.py" beforeDir="false" afterPath="$PROJECT_DIR$/make_examples.py" afterDir="false" />
+    <list default="true" id="22555ffa-adca-4660-bb5c-c44dc1fbd3d2" name="Changes" comment="Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.">
+      <change beforePath="$PROJECT_DIR$/examples/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/examples/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +41,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
     &quot;Python.environment.executor&quot;: &quot;Run&quot;,
     &quot;Python.formatting.executor&quot;: &quot;Run&quot;,
     &quot;Python.make_examples (2).executor&quot;: &quot;Run&quot;,
@@ -159,7 +155,9 @@
       <option name="presentableId" value="Default" />
       <updated>1738423137074</updated>
       <workItem from="1738423138172" duration="4316000" />
-      <workItem from="1738427510873" duration="3774000" />
+      <workItem from="1738427510873" duration="7111000" />
+      <workItem from="1738680443133" duration="3200000" />
+      <workItem from="1738767058422" duration="3005000" />
     </task>
     <task id="LOCAL-00001" summary="fsdf">
       <option name="closed" value="true" />
@@ -169,7 +167,63 @@
       <option name="project" value="LOCAL" />
       <updated>1738426861751</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.">
+      <option name="closed" value="true" />
+      <created>1738432315409</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1738432315409</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.">
+      <option name="closed" value="true" />
+      <created>1738680881669</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1738680881669</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.">
+      <option name="closed" value="true" />
+      <created>1738680947365</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1738680947365</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.">
+      <option name="closed" value="true" />
+      <created>1738681179861</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1738681179861</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.">
+      <option name="closed" value="true" />
+      <created>1738768903073</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1738768903073</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.">
+      <option name="closed" value="true" />
+      <created>1738770566857</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1738770566857</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.">
+      <option name="closed" value="true" />
+      <created>1738770847783</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1738770847783</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,7 +240,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="HEAD" />
                       </list>
                     </value>
                   </entry>
@@ -200,12 +254,13 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fsdf" />
-    <option name="LAST_COMMIT_MESSAGE" value="fsdf" />
+    <MESSAGE value="Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics." />
+    <option name="LAST_COMMIT_MESSAGE" value="Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/propfixes$make_examples.coverage" NAME="make_examples Coverage Results" MODIFIED="1738426711106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/propfixes$utils.coverage" NAME="utils Coverage Results" MODIFIED="1738423581437" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyLaTeXtables" />
     <SUITE FILE_PATH="coverage/propfixes$formatting.coverage" NAME="formatting Coverage Results" MODIFIED="1738426146580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PyLaTeXtables" />
-    <SUITE FILE_PATH="coverage/propfixes$make_examples__2_.coverage" NAME="make_examples (2) Coverage Results" MODIFIED="1738431682199" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/propfixes$make_examples__2_.coverage" NAME="make_examples (2) Coverage Results" MODIFIED="1738768857579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
