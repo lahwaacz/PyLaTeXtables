@@ -59,7 +59,10 @@ def _get_spans(sparse_labels):
     return sparse_spans
 
 def get_sparse_labels(multiindex, transpose=True):
-    sparse_labels = [label if label != "" else None for label in multiindex.to_list()] # to save the Sparsify effect from deprecated sparsify=True
+    sparse_labels = [
+        [value if (i == 0 or value != level[i - 1]) else '' for i, value in enumerate(level)]
+        for level in zip(*multiindex.tolist())
+    ] # Sparsify effect for multiindex
     # convert 1D arrays into 2D
     if not isinstance(sparse_labels[0], tuple):
         sparse_labels = [tuple(sparse_labels)]
