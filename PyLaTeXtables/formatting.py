@@ -12,7 +12,7 @@ except ImportError:
 __all__ = ["get_column_types", "write_latex"]
 
 def get_column_types(df, f="N", hide_nans=False):
-    import decimal
+
 
     assert f in {"n", "N"}
 
@@ -228,7 +228,6 @@ def write_latex(df, output_file, *, template_name="general.tex",
     env.filters["data_fmt"] = data_fmt
 
     t = env.get_template(template_name)
-    header_is_hierarchical = (df.columns.nlevels > 1)
     latex = t.render(df=df,
                      sparse_header=sparse_header,
                      sparse_index=sparse_index,
