@@ -26,9 +26,9 @@ def get_column_types(df, f="N", hide_nans=False):
             return 0  # NaN
         return max(0, -e)
 
-    decimals = df.applymap(lambda v: decimal.Decimal(str(v)).normalize())
-    places_before = decimals.applymap(count_places_before).apply(max)
-    places_after = decimals.applymap(count_places_after).apply(max)
+    decimals = df.map(lambda v: decimal.Decimal(str(v)).normalize())
+    places_before = decimals.map(count_places_before).apply(max)
+    places_after = decimals.map(count_places_after).apply(max)
 
     column_types = []
     for before, after in zip(places_before, places_after):
@@ -59,10 +59,16 @@ def _get_spans(sparse_labels):
     return sparse_spans
 
 def get_sparse_labels(multiindex, transpose=True):
-    sparse_labels = multiindex.format(sparsify=True, adjoin=False)
-    # convert 1D arrays into 2D
-    if not isinstance(sparse_labels[0], tuple):
-        sparse_labels = [tuple(sparse_labels)]
+    if multiindex.nlevels > 1:
+        # Sparsify effect for multiindex
+        sparse_labels = [
+            tuple(value if (i == 0 or value != level[i - 1]) else "" for i, value in enumerate(level))
+            for level in zip(*multiindex.to_list())
+        ]
+    else:
+        # Convert 1D arrays into 2D
+        sparse_labels = [tuple(multiindex.to_list())]
+
     sparse_spans = [_get_spans(labels) for labels in sparse_labels]
 
     # transpose the lists of tuples

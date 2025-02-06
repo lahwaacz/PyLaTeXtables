@@ -139,6 +139,6 @@ def cleanup_dataframe(df, *, index_columns=1):
     # explicitly convert strings to numbers - should be done only after we assemble the header and index
     # (this would not be necessary if we could use the 'header' parameter of pandas.read_csv)
     for col in df.columns:
-        df[col] = pandas.to_numeric(df[col], errors="ignore")
+        df[col] = pandas.to_numeric(df[col], errors="coerce")
 
     return df
