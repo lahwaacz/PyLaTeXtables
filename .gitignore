@@ -6,3 +6,7 @@
 /.idea/propfixes.iml
 /.idea/vcs.xml
 /.idea/workspace.xml
+/build/
+/dist/
+*.egg-info/
+.venv/
