@@ -12,36 +12,29 @@ except ImportError:
 __all__ = ["get_column_types", "write_latex"]
 
 def get_column_types(df, f="N", hide_nans=False):
-
-
     assert f in {"n", "N"}
 
     def count_places_before(d):
         if not d.is_finite():
-            return 0 if hide_nans else len(str(d))
+            return 0 if hide_nans is True else len(str(d))
         t = d.as_tuple()
         return max(1, t.sign + len(t.digits) + t.exponent)
 
     def count_places_after(d):
         e = d.as_tuple().exponent
         if not isinstance(e, int):
-            return 0  # e.g., NaN
+            return 0  # NaN
         return max(0, -e)
 
     decimals = df.map(lambda v: decimal.Decimal(str(v)).normalize())
-
     places_before = decimals.map(count_places_before).apply(max)
     places_after = decimals.map(count_places_after).apply(max)
 
-
-    # 3) Build column types
     column_types = []
     for before, after in zip(places_before, places_after):
-        # For example, "N{2}{3}" or "n{3}{2}"
         column_types.append(f + "{" + str(before) + "}{" + str(after) + "}")
 
     return " ".join(column_types), places_before, places_after
-
 
 def _get_spans(sparse_labels):
     # calculate column/row spans
@@ -66,8 +59,6 @@ def _get_spans(sparse_labels):
     return sparse_spans
 
 def get_sparse_labels(multiindex, transpose=True):
-
-
     if multiindex.nlevels > 1:
         # Sparsify effect for multiindex
         sparse_labels = [
@@ -83,19 +74,16 @@ def get_sparse_labels(multiindex, transpose=True):
     # transpose the lists of tuples
     if transpose is True:
         sparse_labels = list(zip(*sparse_labels))
-
         sparse_spans = list(zip(*sparse_spans))
 
-    # zip into (label, span) pairs for later usage
+    # zip into (label, span) pairs
     zipped = []
-    for row_labels, row_spans in zip(sparse_labels, sparse_spans):
-        row_pairs = []
-        for pair in zip(row_labels, row_spans):
-            row_pairs.append(pair)
-        zipped.append(row_pairs)
-
+    for a, b in zip(sparse_labels, sparse_spans):
+        r = []
+        for pair in zip(a, b):
+            r.append(pair)
+        zipped.append(r)
     return zipped
-
 
 def write_latex(df, output_file, *, template_name="general.tex",
                 header_dict=None, header_in_math=True,
