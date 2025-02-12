@@ -9,18 +9,17 @@ import PyLaTeXtables as plt
 import pandas
 
 examples_dir = os.path.join(os.path.dirname(__file__), "examples")
-#Updated HEADER_DICTIONARY to include 'level' and 'col_span' keys for each header.
-    # This allows us to handle multi-level headers in eoc.tex or other LaTeX templates more cleanly.
+
 HEADER_DICTIONARY = {
-    "Index": {"level": 0, "text": r"$ h~[\textup{m}] $", "col_span": 1},  # Index header
-    "dt": {"level": 0, "text": r"$ \tau~[\textup{s}] $", "col_span": 1},
-    "DOF": {"level": 0, "text": r"$ N_{dof} $", "col_span": 1},
-    "EOC 1": {"level": 0, "text": r"$ eoc_{S_n,1} $", "col_span": 1},
-    "EOC 2": {"level": 0, "text": r"$ eoc_{S_n,2} $", "col_span": 1},
-    "L1": {"level": 0, "text": r"$ \lVert E_{h,S_n} \rVert_1 $", "col_span": 1},
-    "L2": {"level": 0, "text": r"$ \lVert E_{h,S_n} \rVert_2 $", "col_span": 1},
-    "BC": {"level": 0, "text": r"{\footnotesize Brooks \& Corey}", "col_span": 1},
-    "VG": {"level": 0, "text": r"{\footnotesize van Genuchten}", "col_span": 1},
+        "h": r"$ h~[\textup{m}] $",
+        "dt": r"$ \tau~[\textup{s}] $",
+        "DOF": r"$ N_{dof} $",
+        "EOC 1": r"$ eoc_{S_n,1} $",
+        "EOC 2": r"$ eoc_{S_n,2} $",
+        "L1": r"$ \lVert E_{h,S_n} \rVert_1 $",
+        "L2": r"$ \lVert E_{h,S_n} \rVert_2 $",
+        "BC": r"{\footnotesize Brooks \& Corey}",
+        "VG": r"{\footnotesize van Genuchten}",
 }
 
 def recalculate_eocs(df, norm_columns):
@@ -54,8 +53,7 @@ def make_table(filename):
             parts.append(df)
 
     # join the parts horizontally, use the same index
-    df = pandas.concat(parts, axis=1)
-    df = df.reindex(parts[0].index)
+    df = pandas.concat(parts, axis=1).reindex(parts[0].index)
 
     # recalculate EOCs
     recalculate_eocs(df, ["S_L1", "S_L2"])
