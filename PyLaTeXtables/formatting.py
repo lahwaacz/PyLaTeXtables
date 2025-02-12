@@ -29,8 +29,10 @@ def get_column_types(df, f="N", hide_nans=False):
         return max(0, -e)
 
     decimals = df.map(lambda v: decimal.Decimal(str(v)).normalize())
-    places_before = decimals.map(count_places_before).max()
-    places_after = decimals.map(count_places_after).max()
+
+    places_before = decimals.map(count_places_before).apply(max)
+    places_after = decimals.map(count_places_after).apply(max)
+
 
     # 3) Build column types
     column_types = []
@@ -64,24 +66,29 @@ def _get_spans(sparse_labels):
     return sparse_spans
 
 def get_sparse_labels(multiindex, transpose=True):
-    # Convert the MultiIndex to a list of tuples or strings
-    labels = list(multiindex)
 
-    # If `labels` is single-level (e.g. ["col1", "col2"]), turn it into [("col1", "col2")]
-    # so the rest of the function still works:
-    if labels and not isinstance(labels[0], tuple):
-        labels = [tuple(labels)]
 
-    # `_get_spans` will be applied to each element of `labels`.
-    sparse_spans = [_get_spans(l) for l in labels]
+    if multiindex.nlevels > 1:
+        # Sparsify effect for multiindex
+        sparse_labels = [
+            tuple(value if (i == 0 or value != level[i - 1]) else "" for i, value in enumerate(level))
+            for level in zip(*multiindex.to_list())
+        ]
+    else:
+        # Convert 1D arrays into 2D
+        sparse_labels = [tuple(multiindex.to_list())]
 
-    if transpose:
-        labels = list(zip(*labels))
+    sparse_spans = [_get_spans(labels) for labels in sparse_labels]
+
+    # transpose the lists of tuples
+    if transpose is True:
+        sparse_labels = list(zip(*sparse_labels))
+
         sparse_spans = list(zip(*sparse_spans))
 
     # zip into (label, span) pairs for later usage
     zipped = []
-    for row_labels, row_spans in zip(labels, sparse_spans):
+    for row_labels, row_spans in zip(sparse_labels, sparse_spans):
         row_pairs = []
         for pair in zip(row_labels, row_spans):
             row_pairs.append(pair)
