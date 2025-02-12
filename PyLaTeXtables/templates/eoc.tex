@@ -4,10 +4,10 @@
 
 ((* set tabular_columns = index_column_types * index_columns + 'r' * ( data_columns % 2 ) + 'rc' * ( data_columns // 2 ) *))
 ((* set np_digits = 2 *))
-((* set header_is_hierarchical = df.columns.nlevels > 1 *))
+((* set header_is_hierarchical = df.columns.nlevels > 1 *))((# check if df.columns is hierarchical MultiIndex #))
 
 % The table needs the following to be defined in the preamble:
-%   
+%
 %   \usepackage{booktabs}
 %   \usepackage{multirow}
 %   \usepackage{adjustbox}
@@ -40,7 +40,7 @@
     ((# Underline the common columns of hierarchical header #))
     ((* if header_is_hierarchical and not loop.last *))
         ((* for col_description, colspan in sparse_header[row] *))
-            ((* if col_description and colspan > 0 -*))
+            ((* if col_description and colspan > 1 -*))
                 \cmidrule(l((( 'r' if loop.index + colspan - 1 < data_columns )))){((( index_columns + loop.index )))-((( index_columns + loop.index + colspan - 1 )))}
             ((* endif *))
         ((* endfor *))
@@ -70,19 +70,8 @@
     ((*- endfor *))
 
     ((* for x in row -*))
-        ((* if outer_loop.index0 < sparse_index|length *))
-    ((* set _row_label = sparse_index[outer_loop.index0][-1][0] | string *))
-((* else *))
-    % The template tried to access an index beyond the length of sparse_index.
-    % For single-level indexes, or extra rows, you can handle them here:
-    ((* set _row_label = "" *))
-((* endif *))
-((* if loop.index0 < sparse_header[-1] | length *))
-    ((* set _col_label = sparse_header[-1][loop.index0][0] | default('', true) *))
-((* else *))
-    ((* set _col_label = "" *))
-((* endif *))
-
+        ((* set _row_label = sparse_index[outer_loop.index0][-1][0] | string *))
+        ((* set _col_label = sparse_header[-1][loop.index0][0] | string *))
         ((* if "eoc" in _row_label.lower() *))
             ((* if not loop.first -*))
                 ((# reference: https://tex.stackexchange.com/a/168457/135207 -#))
