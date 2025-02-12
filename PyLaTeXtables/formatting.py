@@ -28,12 +28,9 @@ def get_column_types(df, f="N", hide_nans=False):
             return 0  # e.g., NaN
         return max(0, -e)
 
-    # 1) Normalize values
-    decimals = df.apply(lambda col: col.map(lambda v: decimal.Decimal(str(v)).normalize()))
-
-    # 2) Count places before and after decimal
-    places_before = decimals.apply(lambda col: col.map(count_places_before)).apply(max)
-    places_after = decimals.apply(lambda col: col.map(count_places_after)).apply(max)
+    decimals = df.map(lambda v: decimal.Decimal(str(v)).normalize())
+    places_before = decimals.map(count_places_before).max()
+    places_after = decimals.map(count_places_after).max()
 
     # 3) Build column types
     column_types = []
