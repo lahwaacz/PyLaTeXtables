@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="22555ffa-adca-4660-bb5c-c44dc1fbd3d2" name="Changes" comment="after adding .idea/ in .gitignore it creates new conflicts">
+      <change afterPath="$PROJECT_DIR$/.idea/PyLaTeXtables.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/d3centQ/PyLaTeXtables.git",
+    "accountId": "deca6649-a021-49a6-8404-ebf7ea4154d8"
+  }
+}]]></component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "backup-branch",
+    "last_opened_file_path": "C:/Users/sanya/PycharmProjects/PyLaTeXtables",
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task id="LOCAL-00001" summary="Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.">
+      <option name="closed" value="true" />
+      <created>1739482528787</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1739482528787</updated>
+    </task>
+    <task id="LOCAL-00002" summary="after adding .idea/ in .gitignore it creates new conflicts">
+      <option name="closed" value="true" />
+      <created>1739482644084</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1739482644084</updated>
+    </task>
+    <task id="LOCAL-00003" summary="after adding .idea/ in .gitignore it creates new conflicts">
+      <option name="closed" value="true" />
+      <created>1739482673309</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1739482673309</updated>
+    </task>
+    <task id="LOCAL-00004" summary="after adding .idea/ in .gitignore it creates new conflicts">
+      <option name="closed" value="true" />
+      <created>1739482703227</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1739482703227</updated>
+    </task>
+    <task id="LOCAL-00005" summary="after adding .idea/ in .gitignore it creates new conflicts">
+      <option name="closed" value="true" />
+      <created>1739482710292</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1739482710292</updated>
+    </task>
+    <task id="LOCAL-00006" summary="after adding .idea/ in .gitignore it creates new conflicts">
+      <option name="closed" value="true" />
+      <created>1739482759243</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1739482759243</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add __pycache__ files" />
+    <MESSAGE value="Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics." />
+    <MESSAGE value="after adding .idea/ in .gitignore it creates new conflicts" />
+    <option name="LAST_COMMIT_MESSAGE" value="after adding .idea/ in .gitignore it creates new conflicts" />
+  </component>
+</project>
