@@ -40,7 +40,7 @@
     ((# Underline the common columns of hierarchical header #))
     ((* if header_is_hierarchical and not loop.last *))
         ((* for col_description, colspan in sparse_header[row] *))
-            ((* if col_description and colspan > 0 -*))
+            ((* if col_description and colspan > 1 -*))
                 \cmidrule(l((( 'r' if loop.index + colspan - 1 < data_columns )))){((( index_columns + loop.index )))-((( index_columns + loop.index + colspan - 1 )))}
             ((* endif *))
         ((* endfor *))

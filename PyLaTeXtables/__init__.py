@@ -9,6 +9,7 @@ Random reference links:
 - http://jinja.pocoo.org/docs/dev/api/
 - http://jinja.pocoo.org/docs/dev/templates/
 """
+import os
 
 from .utils import *
 from .formatting import *
@@ -26,7 +27,7 @@ def make_table(filename, *, index_columns=1, transpose=False, **kwargs):
             parts.append(df)
 
     # join the parts horizontally, use the same index
-    df = pandas.concat(parts, axis=1, join_axes=[parts[0].index])
+    df = pandas.concat(parts, axis=1).reindex(parts[0].index)
 
     if transpose is True:
         df = df.transpose()
