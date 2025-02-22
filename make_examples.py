@@ -53,7 +53,7 @@ def make_table(filename):
             parts.append(df)
 
     # join the parts horizontally, use the same index
-    df = pandas.concat(parts, axis=1, join_axes=[parts[0].index])
+    df = pandas.concat(parts, axis=1).reindex(parts[0].index)
 
     # recalculate EOCs
     recalculate_eocs(df, ["S_L1", "S_L2"])

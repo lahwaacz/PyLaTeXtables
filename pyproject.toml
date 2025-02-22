@@ -1,0 +1,14 @@
+[project]
+name = "PyLaTeXtables"
+version = "0.0"
+description = "Generic LaTeX tables formatter using Pandas and Jinja2"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "jinja2",
+    "pandas",
+]
+
+[project.urls]
+Homepage = "https://github.com/lahwaacz/PyLaTeXtables"
+Issues = "https://github.com/lahwaacz/PyLaTeXtables/issues"

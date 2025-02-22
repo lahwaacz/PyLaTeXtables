@@ -5,13 +5,15 @@ import subprocess
 
 try:
     import pandas
-    pandas.set_option('display.max_columns', 100)
-    pandas.set_option('display.max_rows', 200)
-    pandas.set_option('display.width', 128)
+
+    pandas.set_option("display.max_columns", 100)
+    pandas.set_option("display.max_rows", 200)
+    pandas.set_option("display.width", 128)
 except ImportError:
     raise ImportError("Please make sure that the python3-pandas package is installed.")
 
 __all__ = ["load_dataframes", "build_header", "cleanup_dataframe"]
+
 
 def load_dataframes(filename):
     basename, ext = os.path.splitext(filename)
@@ -19,21 +21,25 @@ def load_dataframes(filename):
     if ext != ".csv":
         csv = basename + ".csv"
         # the FilterOptions set "\t" as delimiter and text quoting
-        cmd = "unoconv -f csv -e FilterOptions='9,34,UNICODE,1' -o '{}' '{}'".format(csv, filename)
+        cmd = "unoconv -f csv -e FilterOptions='9,34,UNICODE,1' -o '{}' '{}'".format(
+            csv, filename
+        )
         subprocess.check_call(cmd, shell=True)
     else:
         csv = filename
 
-    df = pandas.read_csv(csv,
-                         delimiter="\t",
-                         header=None,
-                         na_values=["#DIV/0!", "Err:502", "#VALUE!"],
-                         skip_blank_lines=False)
+    df = pandas.read_csv(
+        csv,
+        delimiter="\t",
+        header=None,
+        na_values=["#DIV/0!", "Err:502", "#VALUE!"],
+        skip_blank_lines=False,
+    )
 
     # split on null rows
-    null_rows = []              
+    null_rows = []
     for i, row in df.iterrows():
-        if row.isnull().all(): 
+        if row.isnull().all():
             null_rows.append(i)
     # ghost rows
     null_rows.insert(0, -1)
@@ -42,7 +48,8 @@ def load_dataframes(filename):
     # yield the split parts
     for a, b in zip(null_rows[:-1], null_rows[1:]):
         if b - a > 1:
-            yield df[a+1:b]
+            yield df[a + 1 : b]
+
 
 def build_header(df):
     def is_number(value):
@@ -82,12 +89,13 @@ def build_header(df):
     header_columns = list(zip(*header_rows))
 
     # drop header rows
-    df = df[len(header_rows):]
+    df = df[len(header_rows) :]
 
     # set header
     df.columns = pandas.MultiIndex.from_tuples(header_columns)
 
     return df
+
 
 def cleanup_dataframe(df, *, index_columns=1):
     # drop empty rows
@@ -131,14 +139,14 @@ def cleanup_dataframe(df, *, index_columns=1):
     names = []
     for label in labels:
         if isinstance(label, tuple):
-            if label[:-1] == ("", ) * (len(label) - 1):
+            if label[:-1] == ("",) * (len(label) - 1):
                 label = label[-1]
         names.append(label)
     df.index = df.index.set_names(names)
 
     # explicitly convert strings to numbers - should be done only after we assemble the header and index
-    # (this would not be necessary if we could use the 'header' parameter of pandas.read_csv)
+    # Updated: Convert columns to numeric; invalid parsing is now set to NaN instead of being ignored.
     for col in df.columns:
-        df[col] = pandas.to_numeric(df[col], errors="ignore")
+        df[col] = pandas.to_numeric(df[col], errors="coerce")
 
     return df
