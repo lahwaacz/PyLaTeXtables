@@ -1,0 +1,7 @@
+*.aux
+<<<<<<< HEAD
+*.log
+=======
+*.log
+.idea/
+>>>>>>> 0360eaf (Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.)

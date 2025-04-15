@@ -16,13 +16,14 @@ from .formatting import *
 
 import pandas
 
+
 def make_table(filename, *, index_columns=1, transpose=False, **kwargs):
     parts = []
 
     # load data frame
     for df in utils.load_dataframes(filename):
         df = utils.cleanup_dataframe(df, index_columns=index_columns)
-        
+
         if not df.empty:
             parts.append(df)
 

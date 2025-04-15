@@ -1,0 +1,85 @@
+[33m9a6a640[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mstart-over[m[33m)[m after adding .idea/ in .gitignore it creates new conflicts
+[33m5252475[m Add .idea/ to .gitignore
+[33m12ac9bb[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mbackup-branch[m[33m)[m Merge resolution: resolved conflicts in .gitignore and .idea files
+[33m9d50f6a[m Add __pycache__ files
+[33mb50ddb3[m resolving gitignore
+[33md77b2e7[m fixing makeexample.py
+[33m4629cdb[m fixing eoc.tex
+[33mfbc5c22[m fixing formatting
+[33me5dd1a2[m fixing gitignore file
+[33mf0bc1e5[m Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.
+[33m1d87fd0[m Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.
+[33m770a77b[m Merge branch 'master' into master
+[33m4208e71[m after adding .idea/ in .gitignore it creates new conflicts
+[33ma934d81[m after adding .idea/ in .gitignore it creates new conflicts
+[33m6c906ac[m after adding .idea/ in .gitignore it creates new conflicts
+[33mbedf916[m after adding .idea/ in .gitignore it creates new conflicts
+[33m65915c5[m after adding .idea/ in .gitignore it creates new conflicts
+[33m79c94b6[m after adding .idea/ in .gitignore it creates new conflicts
+[33me30146a[m Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.
+[33m87c4767[m[33m ([m[1;31morigin/backup-branch[m[33m)[m Add __pycache__ files
+[33mfcd89b2[m resolving gitignore
+[33m7258aaf[m[33m ([m[1;32morigin[m[33m)[m resolving gitignore
+[33ma4cad8f[m resolving gitignore
+[33mbdf7803[m fixing makeexample.py
+[33mbf57753[m fixing eoc.tex
+[33mf094f1f[m fixing formatting
+[33mcf5d946[m fixing formatting
+[33m65d8be8[m fixing formatting
+[33mfee6cd0[m fixing gitignore file
+[33maf3146e[m fixing gitignore file
+[33m64133fd[m fixing gitignore file
+[33m8499e67[m fixing gitignore file
+[33m5c47807[m fixing gitignore file
+[33ma9da68f[m Remove .idea files from tracking
+[33m6279a96[m Merge pull request #1 from 00DRUG/fixupdate
+[33mad3d64d[m Added simple pyproject.toml
+[33m1f70050[m Rerun make_examples.py
+[33m298266d[m Fixed condition for cmidrule formatting
+[33m7d4dcde[m Fixed get_sparse_labels function to give the same results as with old Pandas
+[33m3a40ff1[m Sparsify element in formating.py must be fixed
+[33m0da0010[m Adding README.md file, for easier installation and configuration
+[33ma4afd27[m Fixing deprecated functions, replacing them with new
+[33md0c11e5[m Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.
+[33m43e95a4[m Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.
+[33mfbe349b[m Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.
+[33m9b714bf[m Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.
+[33m509a77a[m Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.
+[33md61218a[m Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.
+[33m503a61b[m Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.
+[33m0360eaf[m Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.
+[33m4012cb1[m Handled multi-level headers, removed sparsify calls, replaced applymap, coerced numerics.
+[33me8c7b76[m fixed formatting of non-hierarchical header
+[33mab9662f[m added header_in_math option, removed unused places_before option
+[33ma2fda10[m fixed cleanup_dataframe function for index_columns=1
+[33m3de6a96[m more parametrization: index_column_types, vertical_multirow_cells
+[33m98b018e[m update sparse header/index in the general template
+[33m6add2d8[m fixed eoc.tex template
+[33m839791c[m formatting: fix hide_nans
+[33me3bafdc[m disabled exponents in EOC columns
+[33m75cb2bd[m fixed removing zeros from exponent
+[33m806e615[m configurable data format per column
+[33m7c716c7[m normalize decimals before calculations
+[33md5f9764[m update examples
+[33ma89de2d[m improve whitespace in templates
+[33m5ae163d[m improve underlining in header
+[33m1e7737d[m update examples
+[33mc756d47[m underline common columns in hierarchical header
+[33m1e632bd[m formatting with numprint column types
+[33md53f0dd[m fix sparse header with empty cells at the start
+[33md284501[m convert strings to numbers later
+[33ma07ee9d[m add general template
+[33mbeae861[m fill in missing index cells
+[33m2cc5200[m adjust pandas display width
+[33me6d7bb1[m fix index column names
+[33m90c2f28[m add another na_value
+[33m7101de2[m simplify loop in is_header_row
+[33m106c76f[m better heuristics for header rows
+[33me3aab88[m convert strings to numbers as soon as possible
+[33m3f1ce95[m fixed formatting of the transposed table
+[33m806c451[m fix formatting of the EOC columns
+[33me8b4ebc[m add example of the resulting pdf
+[33m7a1d391[m add missing required LaTeX package
+[33m478280d[m add transposed example
+[33m7104ad7[m add examples directory
+[33med01f1d[m init the PyLaTeXtables module
