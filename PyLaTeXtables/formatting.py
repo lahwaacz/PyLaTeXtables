@@ -191,7 +191,7 @@ def write_latex(df, output_file, *, template_name="general.tex",
             fmt = "{:.0{}f}"
         else:
             fmt = data_formats[column]
-        fnum = fmt.format(value, places_after[column])
+        fnum = fmt.format(value, places_after.iloc[column])
         return _remove_zeros_from_exponent(fnum)
 
     if os.path.isfile(template_name):
